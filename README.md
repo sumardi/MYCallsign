@@ -1,4 +1,8 @@
-MYCallsign - The Malaysian Amateur Radio iPhone app.
+<h1>MYCallsign</h2> 
+	
+The Malaysian Amateur Radio iPhone app.
+
+<h2>License</h2>
 
 Copyright (C) 2010  Software Machine Development <support@smd.com.my> -
 Sumardi Shukor <me@sumardi.net>
