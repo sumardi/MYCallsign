@@ -21,7 +21,7 @@
 @implementation MYCallsignAppDelegate
 
 @synthesize window;
-
+@synthesize tabBarController;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -31,7 +31,7 @@
     // Override point for customization after application launch.
     
     [self.window makeKeyAndVisible];
-    
+	[self.window addSubview:tabBarController.view];
     return YES;
 }
 
@@ -86,6 +86,7 @@
 
 - (void)dealloc {
     [window release];
+	[tabBarController release];
     [super dealloc];
 }
 
