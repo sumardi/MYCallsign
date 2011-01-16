@@ -17,19 +17,75 @@
 // along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
 
 #import "MYCallsignAppDelegate.h"
+#import "Member.h"
 
 @implementation MYCallsignAppDelegate
 
 @synthesize window;
 @synthesize tabBarController;
+@synthesize members;
 
 #pragma mark -
 #pragma mark Application lifecycle
 
+- (void) newDatabaseConnection {
+	BOOL success;
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	
+	success = [fileManager fileExistsAtPath:dbPath];
+	
+	if(success) return;
+	
+	NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:dbName];
+	
+	[fileManager copyItemAtPath:databasePathFromApp toPath:dbPath error:nil];
+	[fileManager release];
+}
+
+- (void) readMembers {
+	sqlite3 *database;
+	
+	members = [[NSMutableArray alloc] init];
+	
+	if(sqlite3_open([dbPath UTF8String], &database) == SQLITE_OK) {
+		const char *sqlStatement = "select * from members order by handle";
+		sqlite3_stmt *compiledStatement;
+		if(sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
+			while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+				NSString *dCallsign = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+				NSString *dHandle = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+				NSString *dExpire = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
+				NSString *dAa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+				
+				// Create a new member object with the data from the database
+				Member *m = [[Member alloc] iniWithCallsign:dCallsign handle:dHandle expire:dExpire aa:dAa];
+				
+				// Add the member object to the members Array
+				[members addObject:m];
+				[m release];
+			}
+		}
+		// Release the compiled statement from memory
+		sqlite3_finalize(compiledStatement);
+		
+	}
+	sqlite3_close(database);
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
     // Override point for customization after application launch.
-    
+    dbName = @"mycallsign_db.sqlite3";
+	
+	NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsDir = [documentPaths objectAtIndex:0];
+	dbPath = [documentsDir stringByAppendingPathComponent:dbName];
+	
+	// Execute the "checkAndCreateDatabase" function
+	[self newDatabaseConnection];
+	
+	[self readMembers];
+	
     [self.window makeKeyAndVisible];
 	[self.window addSubview:tabBarController.view];
     return YES;
@@ -87,6 +143,7 @@
 - (void)dealloc {
     [window release];
 	[tabBarController release];
+	[members release];
     [super dealloc];
 }
 

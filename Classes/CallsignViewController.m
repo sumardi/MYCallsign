@@ -17,7 +17,8 @@
 // along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
 
 #import "CallsignViewController.h"
-
+#import "Member.h"
+#import "MYCallsignAppDelegate.h"
 
 @implementation CallsignViewController
 
@@ -41,13 +42,14 @@
 #pragma mark -
 #pragma mark View lifecycle
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = @"Search";
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+	
+	// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -89,7 +91,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 10;
+	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
+    return appDelegate.members.count;
 }
 
 
@@ -103,8 +106,12 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    // Configure the cell...
-    
+    // Set up the cell
+	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
+	Member *m = (Member *)[appDelegate.members objectAtIndex:indexPath.row];
+	
+	cell.textLabel.text = m.handle;
+	
     return cell;
 }
 

@@ -19,10 +19,11 @@
 #import <UIKit/UIKit.h>
 
 
-@interface CallsignViewController : UIViewController {
+@interface CallsignViewController : UITableViewController {
+	// A table list
 	IBOutlet UITableViewController *tableCallsignList;
 }
 
-@property (retain, nonatomic) IBOutlet UITableViewController *tableCallsignList;
+@property (nonatomic, retain) IBOutlet UITableViewController *tableCallsignList;
 
 @end

@@ -17,23 +17,22 @@
 // along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 
-@interface MYCallsignAppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
-	UITabBarController *tabBarController;
-	
-	// Database variables
-	NSString *dbName;
-	NSString *dbPath;
-	
-	// An array to store the member objects
-	NSMutableArray *members;
+
+@interface Member : NSObject {
+	NSNumber *index;
+	NSString *callsign;
+	NSString *handle;
+	NSString *expire;
+	NSString *aa;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
-@property (nonatomic, retain) NSMutableArray *members;
+@property (nonatomic, retain) NSNumber *index;
+@property (nonatomic, retain) NSString *callsign;
+@property (nonatomic, retain) NSString *handle;
+@property (nonatomic, retain) NSString *expire;
+@property (nonatomic, retain) NSString *aa;
+
+-(id) iniWithCallsign:(NSString *)c handle:(NSString *)h expire:(NSString *)e aa:(NSString *)a;
 
 @end
-

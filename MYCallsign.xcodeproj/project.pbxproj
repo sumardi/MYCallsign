@@ -23,6 +23,9 @@
 		9F72296E12E2291E0014C399 /* RepeaterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F72296D12E2291E0014C399 /* RepeaterView.xib */; };
 		9F72297112E229410014C399 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F72297012E229410014C399 /* AboutViewController.m */; };
 		9F72297312E2294E0014C399 /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F72297212E2294E0014C399 /* AboutView.xib */; };
+		9F7229E512E37CB90014C399 /* mycallsign_db.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 9F7229E412E37CB90014C399 /* mycallsign_db.sqlite3 */; };
+		9F7229ED12E37D010014C399 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7229EC12E37D010014C399 /* libsqlite3.0.dylib */; };
+		9F7229F412E37E160014C399 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7229F312E37E160014C399 /* Member.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +52,10 @@
 		9F72296F12E229410014C399 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		9F72297012E229410014C399 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		9F72297212E2294E0014C399 /* AboutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutView.xib; sourceTree = "<group>"; };
+		9F7229E412E37CB90014C399 /* mycallsign_db.sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = file; name = mycallsign_db.sqlite3; path = Databases/mycallsign_db.sqlite3; sourceTree = "<group>"; };
+		9F7229EC12E37D010014C399 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		9F7229F212E37E160014C399 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
+		9F7229F312E37E160014C399 /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +66,7 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
+				9F7229ED12E37D010014C399 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +84,8 @@
 				9F72296B12E2290E0014C399 /* RepeaterViewController.m */,
 				9F72296F12E229410014C399 /* AboutViewController.h */,
 				9F72297012E229410014C399 /* AboutViewController.m */,
+				9F7229F212E37E160014C399 /* Member.h */,
+				9F7229F312E37E160014C399 /* Member.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -105,6 +115,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				9F7229E412E37CB90014C399 /* mycallsign_db.sqlite3 */,
 				32CA4F630368D1EE00C91783 /* MYCallsign_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -125,6 +136,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+				9F7229EC12E37D010014C399 /* libsqlite3.0.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -208,6 +220,7 @@
 				9F72296912E228EE0014C399 /* CallsignView.xib in Resources */,
 				9F72296E12E2291E0014C399 /* RepeaterView.xib in Resources */,
 				9F72297312E2294E0014C399 /* AboutView.xib in Resources */,
+				9F7229E512E37CB90014C399 /* mycallsign_db.sqlite3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +236,7 @@
 				9F72296712E2288C0014C399 /* CallsignViewController.m in Sources */,
 				9F72296C12E2290E0014C399 /* RepeaterViewController.m in Sources */,
 				9F72297112E229410014C399 /* AboutViewController.m in Sources */,
+				9F7229F412E37E160014C399 /* Member.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
