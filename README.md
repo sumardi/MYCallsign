@@ -25,4 +25,5 @@ Sumardi Shukor &lt;me[at]sumardi.net&gt;<br />
 <ul>
 	<li>9W2WTF - Mohd Hafiz Ismail</li>
 	<li>9W2PJU - Mohamad Faizul Zulkifli</li>
+	<li>Joseph Wain / glyphish.com</li>
 </ul>
