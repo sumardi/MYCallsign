@@ -46,6 +46,8 @@
     [super viewDidLoad];
 	self.title = @"Search";
 	
+	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
+	rows = appDelegate.members;
 	// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -85,16 +87,30 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+	return rows.count;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
-    return appDelegate.members.count;
+	return [[[rows objectAtIndex:section] objectForKey:@"rowValues"] count] ;
 }
 
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+	// Return the section titles to display.
+	return [rows valueForKey:@"headerTitle"];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+	// Return an index value of the section you're currently touching in the index.
+	return [[[rows valueForKey:@"headerTitle"] retain] indexOfObject:title];
+}
+
+- (NSString *)tableView:(UITableView *)aTableView titleForHeaderInSection:(NSInteger)section {
+	// Return titles to each section header.
+	return [[rows objectAtIndex:section] objectForKey:@"headerTitle"];
+	
+}
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -107,10 +123,8 @@
     }
     
     // Set up the cell
-	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
-	Member *m = (Member *)[appDelegate.members objectAtIndex:indexPath.row];
-	
-	cell.textLabel.text = m.handle;
+	Member *m = (Member *)[[[rows objectAtIndex:indexPath.section] objectForKey:@"rowValues"] objectAtIndex:indexPath.row];
+	cell.textLabel.text = [m.handle capitalizedString];
 	
     return cell;
 }

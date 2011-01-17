@@ -46,28 +46,41 @@
 	sqlite3 *database;
 	
 	members = [[NSMutableArray alloc] init];
+
+	static NSString *letters = @"abcdefghijklmnopqrstuvwxyz";
 	
 	if(sqlite3_open([dbPath UTF8String], &database) == SQLITE_OK) {
-		const char *sqlStatement = "select * from members order by handle";
-		sqlite3_stmt *compiledStatement;
-		if(sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
-			while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
-				NSString *dCallsign = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
-				NSString *dHandle = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
-				NSString *dExpire = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
-				NSString *dAa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+		for(int i = 0; i < [letters length]; i++) {
+			NSString *sqlStr = [NSString stringWithFormat:@"select * from members where handle like '%c%%' order by handle", toupper([letters characterAtIndex:i])];
+			const char *sqlStatement = [sqlStr UTF8String];
+			sqlite3_stmt *compiledStatement;
+			
+			NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
+			NSMutableArray *handles = [[[NSMutableArray alloc] init] autorelease];
+			
+			if(sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
+				while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+					NSString *dCallsign = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+					NSString *dHandle = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+					NSString *dExpire = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
+					NSString *dAa = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
 				
-				// Create a new member object with the data from the database
-				Member *m = [[Member alloc] iniWithCallsign:dCallsign handle:dHandle expire:dExpire aa:dAa];
-				
-				// Add the member object to the members Array
-				[members addObject:m];
-				[m release];
+					// Create a new member object with the data from the database
+					Member *m = [[Member alloc] iniWithCallsign:dCallsign handle:dHandle expire:dExpire aa:dAa];
+					
+					// Add the member object to the handles Array
+					[handles addObject:m];
+					
+					[m release];
+				}
+				char currentLetter[2] = { toupper([letters characterAtIndex:i]), '\0'};
+				[row setValue:[NSString stringWithCString:currentLetter encoding:NSASCIIStringEncoding] forKey:@"headerTitle"];
+				[row setValue:handles forKey:@"rowValues"];
+				[members addObject:row];
 			}
+			// Release the compiled statement from memory
+			sqlite3_finalize(compiledStatement);
 		}
-		// Release the compiled statement from memory
-		sqlite3_finalize(compiledStatement);
-		
 	}
 	sqlite3_close(database);
 }

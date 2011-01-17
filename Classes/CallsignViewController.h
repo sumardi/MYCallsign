@@ -22,6 +22,8 @@
 @interface CallsignViewController : UITableViewController {
 	// A table list
 	IBOutlet UITableViewController *tableCallsignList;
+	
+	NSMutableArray *rows;
 }
 
 @property (nonatomic, retain) IBOutlet UITableViewController *tableCallsignList;
