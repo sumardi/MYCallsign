@@ -22,7 +22,7 @@
 
 @implementation CallsignViewController
 
-@synthesize tableCallsignList;
+@synthesize tableCallsignList, uiTableView, uiSearchBar;
 
 #pragma mark -
 #pragma mark Initialization
@@ -47,7 +47,11 @@
 	self.title = @"Search";
 	
 	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
-	rows = appDelegate.members;
+	tableData = appDelegate.members;
+	
+	filteredData = [[NSMutableArray alloc] initWithCapacity:[tableData count]];
+	[filteredData addObjectsFromArray:tableData];
+	
 	// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -81,34 +85,72 @@
 }
 */
 
+#pragma mark -
+#pragma mark Search bar
+
+- (void) searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
+	[tableData removeAllObjects];
+	[uiTableView reloadData];
+}
+
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+	[tableData removeAllObjects];
+	
+	NSMutableArray *objects = [[NSMutableArray alloc] init];
+	[objects addObject:[filteredData valueForKey:@"rowValues"]];
+	
+	NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
+	[row setValue:[NSString stringWithString:@""] forKey:@"headerTitle"];
+	NSMutableArray *handles = [[[NSMutableArray alloc] init] autorelease];
+	
+	// This is a bad idea. Need some improvement later.
+	for (NSArray *a in objects) {
+		for(NSArray *c in a) {
+			for(Member *m in c) {
+				NSComparisonResult searchCallsign = [m.callsign compare:searchText options:NSCaseInsensitiveSearch range:NSMakeRange(0, [searchText length])];
+				if (searchCallsign == NSOrderedSame) {
+					[handles addObject:m];
+				}
+				NSComparisonResult searchName = [m.handle compare:searchText options:NSCaseInsensitiveSearch range:NSMakeRange(0, [searchText length])];
+				if (searchName == NSOrderedSame) {
+					[handles addObject:m];
+				}
+			}
+		}
+    }
+	[row setValue:handles forKey:@"rowValues"];
+	[tableData addObject:row];
+	[uiTableView reloadData];
+}
 
 #pragma mark -
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-	return rows.count;
+	return tableData.count;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-	return [[[rows objectAtIndex:section] objectForKey:@"rowValues"] count] ;
+	return [[[tableData objectAtIndex:section] objectForKey:@"rowValues"] count] ;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
 	// Return the section titles to display.
-	return [rows valueForKey:@"headerTitle"];
+	return [tableData valueForKey:@"headerTitle"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
 	// Return an index value of the section you're currently touching in the index.
-	return [[[rows valueForKey:@"headerTitle"] retain] indexOfObject:title];
+	return [[[tableData valueForKey:@"headerTitle"] retain] indexOfObject:title];
 }
 
 - (NSString *)tableView:(UITableView *)aTableView titleForHeaderInSection:(NSInteger)section {
 	// Return titles to each section header.
-	return [[rows objectAtIndex:section] objectForKey:@"headerTitle"];
+	return [[tableData objectAtIndex:section] objectForKey:@"headerTitle"];
 	
 }
 
@@ -123,7 +165,7 @@
     }
     
     // Set up the cell
-	Member *m = (Member *)[[[rows objectAtIndex:indexPath.section] objectForKey:@"rowValues"] objectAtIndex:indexPath.row];
+	Member *m = (Member *)[[[tableData objectAtIndex:indexPath.section] objectForKey:@"rowValues"] objectAtIndex:indexPath.row];
 	cell.textLabel.text = [m.handle capitalizedString];
 	
     return cell;
@@ -203,6 +245,8 @@
 
 - (void)dealloc {
 	[tableCallsignList release];
+	[uiTableView release];
+	[uiSearchBar release];
     [super dealloc];
 }
 

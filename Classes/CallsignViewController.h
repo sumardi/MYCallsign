@@ -19,13 +19,17 @@
 #import <UIKit/UIKit.h>
 
 
-@interface CallsignViewController : UITableViewController {
+@interface CallsignViewController : UITableViewController <UISearchBarDelegate> {
 	// A table list
 	IBOutlet UITableViewController *tableCallsignList;
-	
-	NSMutableArray *rows;
+	UITableView *uiTableView;
+	NSMutableArray *tableData;
+	NSMutableArray *filteredData;
+	UISearchBar *uiSearchBar;
 }
 
 @property (nonatomic, retain) IBOutlet UITableViewController *tableCallsignList;
+@property (nonatomic, retain) IBOutlet UITableView *uiTableView;
+@property (nonatomic, retain) IBOutlet UISearchBar *uiSearchBar;
 
 @end
