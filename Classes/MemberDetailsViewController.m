@@ -1,29 +1,17 @@
-// MYCallsign - The Malaysian Amateur Radio iPhone app.
-// 
-// Copyright (C) 2010  Software Machine Development <support@smd.com.my> - 
-// Sumardi Shukor <me@sumardi.net>
-// 
-// MYCallsign is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
+//
+//  MemberDetailsViewController.m
+//  MYCallsign
+//
+//  Created by Sumardi Shukor on 1/20/11.
+//  Copyright 2011 Software Machine Development. All rights reserved.
+//
 
-#import "CallsignViewController.h"
-#import "Member.h"
-#import "MYCallsignAppDelegate.h"
 #import "MemberDetailsViewController.h"
+#import "Member.h"
 
-@implementation CallsignViewController
+@implementation MemberDetailsViewController
 
-@synthesize tableCallsignList, uiTableView, uiSearchBar, membersArray;
+@synthesize selectedMember;
 
 #pragma mark -
 #pragma mark Initialization
@@ -43,27 +31,25 @@
 #pragma mark -
 #pragma mark View lifecycle
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = @"Search";
+	self.title = selectedMember.callsign;
 	
-	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
-	tableData = appDelegate.members;
+	labels = [NSMutableArray new];
+	values = [NSMutableArray new];
 	
-	NSMutableSet *set = [NSMutableSet setWithArray:[tableData valueForKey:@"rowValues"]];
-	NSArray *q = [set allObjects];
+	[labels addObject:@"Expire Date"];
+	[labels addObject:@"Apparatus Assignment"];
+	[labels addObject:@"Handle"];
 	
-	// Use set to merge the arrays
-	NSMutableSet *s = [[NSMutableSet alloc] init];
-	for(NSArray *t in q) {
-		[s addObjectsFromArray:t];
-	}
-	self.membersArray = [s allObjects];
+	[values addObject:selectedMember.expire];
+	[values addObject:selectedMember.aa];
+	[values addObject:selectedMember.handle];
 	
-	// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -93,59 +79,24 @@
 }
 */
 
-#pragma mark -
-#pragma mark Search bar
-
-- (void) searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
-	[tableData removeAllObjects];
-	[uiTableView reloadData];
-}
-
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-	[tableData removeAllObjects];
-	
-	NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
-	[row setValue:[NSString stringWithString:@""] forKey:@"headerTitle"];
-	
-	NSPredicate *predExists = [NSPredicate predicateWithFormat:
-								@"(%K contains[cd] %@) || (%K contains[cd] %@)", @"handle", searchText, @"callsign", searchText];
-	NSArray *filteredArray = [self.membersArray filteredArrayUsingPredicate:predExists];
-
-	[row setValue:filteredArray forKey:@"rowValues"];
-	[tableData addObject:row];
-	[uiTableView reloadData];
-}
 
 #pragma mark -
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-	return tableData.count;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-	return [[[tableData objectAtIndex:section] objectForKey:@"rowValues"] count] ;
-}
-
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-	// Return the section titles to display.
-	return [tableData valueForKey:@"headerTitle"];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-	// Return an index value of the section you're currently touching in the index.
-	return [[[tableData valueForKey:@"headerTitle"] retain] indexOfObject:title];
+    return [labels count];
 }
 
 - (NSString *)tableView:(UITableView *)aTableView titleForHeaderInSection:(NSInteger)section {
-	// Return titles to each section header.
-	return [[tableData objectAtIndex:section] objectForKey:@"headerTitle"];
-	
+	return [labels objectAtIndex:section];
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return 1;
+}
+
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -157,10 +108,8 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    // Set up the cell
-	Member *m = (Member *)[[[tableData objectAtIndex:indexPath.section] objectForKey:@"rowValues"] objectAtIndex:indexPath.row];
-	cell.textLabel.text = [m.handle capitalizedString];
-	
+    // Configure the cell...
+    cell.textLabel.text = [values objectAtIndex:indexPath.section];
     return cell;
 }
 
@@ -210,16 +159,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here. Create and push another view controller.
-	Member *m = (Member *)[[[tableData objectAtIndex:indexPath.section] objectForKey:@"rowValues"] objectAtIndex:indexPath.row];
-	MemberDetailsViewController *mDetailsView = [[MemberDetailsViewController alloc] initWithNibName:@"MemberDetailsView" bundle:nil];
-	mDetailsView.selectedMember = m;
-	[m release];
-	
-	// Pass the selected object to the new view controller.
-	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
-	[appDelegate.searchNavController pushViewController:mDetailsView animated:YES];
-	[mDetailsView release];
-
+    /*
+    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     // ...
+     // Pass the selected object to the new view controller.
+    [self.navigationController pushViewController:detailViewController animated:YES];
+    [detailViewController release];
+    */
 }
 
 
@@ -240,10 +186,9 @@
 
 
 - (void)dealloc {
-	[tableCallsignList release];
-	[uiTableView release];
-	[uiSearchBar release];
-	[membersArray release];
+	[selectedMember release];
+	[values release];
+	[labels release];
     [super dealloc];
 }
 

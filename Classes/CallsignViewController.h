@@ -17,7 +17,7 @@
 // along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
 
 #import <UIKit/UIKit.h>
-
+//@class MemberDetailsViewController;
 
 @interface CallsignViewController : UITableViewController <UISearchBarDelegate> {
 	// A table list
@@ -33,6 +33,6 @@
 @property (nonatomic, retain) IBOutlet UITableViewController *tableCallsignList;
 @property (nonatomic, retain) IBOutlet UITableView *uiTableView;
 @property (nonatomic, retain) IBOutlet UISearchBar *uiSearchBar;
-@property (nonatomic, retain) IBOutlet NSArray *membersArray;
+@property (nonatomic, retain) NSArray *membersArray;
 
 @end

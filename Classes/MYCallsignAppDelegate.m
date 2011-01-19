@@ -18,11 +18,12 @@
 
 #import "MYCallsignAppDelegate.h"
 #import "Member.h"
+#import "SearchNavController.h"
 
 @implementation MYCallsignAppDelegate
 
 @synthesize window;
-@synthesize tabBarController;
+@synthesize tabBarController, searchNavController;
 @synthesize members;
 
 #pragma mark -
@@ -157,6 +158,7 @@
     [window release];
 	[tabBarController release];
 	[members release];
+	[searchNavController release];
     [super dealloc];
 }
 

@@ -18,10 +18,12 @@
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
+@class SearchNavController;
 
 @interface MYCallsignAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	UITabBarController *tabBarController;
+	IBOutlet SearchNavController *searchNavController;
 	
 	// Database variables
 	NSString *dbName;
@@ -34,6 +36,7 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 @property (nonatomic, retain) NSMutableArray *members;
+@property (nonatomic, retain) IBOutlet SearchNavController *searchNavController;
 
 @end
 
