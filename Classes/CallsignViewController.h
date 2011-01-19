@@ -26,10 +26,13 @@
 	NSMutableArray *tableData;
 	NSMutableArray *filteredData;
 	UISearchBar *uiSearchBar;
+	
+	NSArray *membersArray;
 }
 
 @property (nonatomic, retain) IBOutlet UITableViewController *tableCallsignList;
 @property (nonatomic, retain) IBOutlet UITableView *uiTableView;
 @property (nonatomic, retain) IBOutlet UISearchBar *uiSearchBar;
+@property (nonatomic, retain) IBOutlet NSArray *membersArray;
 
 @end

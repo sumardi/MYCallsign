@@ -22,7 +22,7 @@
 
 @implementation CallsignViewController
 
-@synthesize tableCallsignList, uiTableView, uiSearchBar;
+@synthesize tableCallsignList, uiTableView, uiSearchBar, membersArray;
 
 #pragma mark -
 #pragma mark Initialization
@@ -49,8 +49,15 @@
 	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
 	tableData = appDelegate.members;
 	
-	filteredData = [[NSMutableArray alloc] initWithCapacity:[tableData count]];
-	[filteredData addObjectsFromArray:tableData];
+	NSMutableSet *set = [NSMutableSet setWithArray:[tableData valueForKey:@"rowValues"]];
+	NSArray *q = [set allObjects];
+	
+	// Use set to merge the arrays
+	NSMutableSet *s = [[NSMutableSet alloc] init];
+	for(NSArray *t in q) {
+		[s addObjectsFromArray:t];
+	}
+	self.membersArray = [s allObjects];
 	
 	// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -97,29 +104,14 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
 	[tableData removeAllObjects];
 	
-	NSMutableArray *objects = [[NSMutableArray alloc] init];
-	[objects addObject:[filteredData valueForKey:@"rowValues"]];
-	
 	NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
 	[row setValue:[NSString stringWithString:@""] forKey:@"headerTitle"];
-	NSMutableArray *handles = [[[NSMutableArray alloc] init] autorelease];
 	
-	// This is a bad idea. Need some improvement later.
-	for (NSArray *a in objects) {
-		for(NSArray *c in a) {
-			for(Member *m in c) {
-				NSComparisonResult searchCallsign = [m.callsign compare:searchText options:NSCaseInsensitiveSearch range:NSMakeRange(0, [searchText length])];
-				if (searchCallsign == NSOrderedSame) {
-					[handles addObject:m];
-				}
-				NSComparisonResult searchName = [m.handle compare:searchText options:NSCaseInsensitiveSearch range:NSMakeRange(0, [searchText length])];
-				if (searchName == NSOrderedSame) {
-					[handles addObject:m];
-				}
-			}
-		}
-    }
-	[row setValue:handles forKey:@"rowValues"];
+	NSPredicate *predExists = [NSPredicate predicateWithFormat:
+								@"(%K contains[cd] %@) || (%K contains[cd] %@)", @"handle", searchText, @"callsign", searchText];
+	NSArray *filteredArray = [self.membersArray filteredArrayUsingPredicate:predExists];
+
+	[row setValue:filteredArray forKey:@"rowValues"];
 	[tableData addObject:row];
 	[uiTableView reloadData];
 }
@@ -247,6 +239,7 @@
 	[tableCallsignList release];
 	[uiTableView release];
 	[uiSearchBar release];
+	[membersArray release];
     [super dealloc];
 }
 
