@@ -19,12 +19,14 @@
 #import "MYCallsignAppDelegate.h"
 #import "Member.h"
 #import "SearchNavController.h"
+#import "RepeaterNavController.h"
+#import "Repeater.h"
 
 @implementation MYCallsignAppDelegate
 
 @synthesize window;
-@synthesize tabBarController, searchNavController;
-@synthesize members;
+@synthesize tabBarController, searchNavController, repeaterNavController;
+@synthesize members,repeaters;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -86,6 +88,36 @@
 	sqlite3_close(database);
 }
 
+- (void) readRepeaters {
+	sqlite3 *database;
+	
+	repeaters = [[NSMutableArray alloc] init];
+	
+	if(sqlite3_open([dbPath UTF8String], &database) == SQLITE_OK) {
+			NSString *sqlStr = [NSString stringWithFormat:@"select * from repeaters"];
+			const char *sqlStatement = [sqlStr UTF8String];
+			sqlite3_stmt *compiledStatement;
+		
+			if(sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
+				while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+					NSString *dLongitude = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
+					NSString *dLatitude = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+					NSMutableString *dDescription = [NSMutableString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 3)];
+					[dDescription replaceOccurrencesOfString:@" \"" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [dDescription length])];
+					
+					Repeater *r = [[Repeater alloc] initWithLongitude:dLongitude latitude:dLatitude description:dDescription];
+					// Add the repeater object to the handles Array
+					[repeaters addObject:r];
+					[r release];
+				}
+			}
+			// Release the compiled statement from memory
+			sqlite3_finalize(compiledStatement);
+	}
+	sqlite3_close(database);
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
     // Override point for customization after application launch.
@@ -99,6 +131,7 @@
 	[self newDatabaseConnection];
 	
 	[self readMembers];
+	[self readRepeaters];
 	
     [self.window makeKeyAndVisible];
 	[self.window addSubview:tabBarController.view];
@@ -158,7 +191,10 @@
     [window release];
 	[tabBarController release];
 	[members release];
+	[repeaters release];
 	[searchNavController release];
+	[repeaterNavController release];
+	
     [super dealloc];
 }
 

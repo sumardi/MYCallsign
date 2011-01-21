@@ -16,19 +16,18 @@
 // You should have received a copy of the GNU General Public License
 // along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
 
-#import <UIKit/UIKit.h>
+#import "Repeater.h"
 
 
-@interface RepeaterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-	UISegmentedControl *segmentedControl;
-	UITableView *uiTableView;
-	
-	NSMutableArray *tableData;
+@implementation Repeater
+
+@synthesize index, longitude, latitude, descr;
+
+-(id) initWithLongitude:(NSString *)a latitude:(NSString *)b description:(NSString *)c {
+	self.longitude = a;
+	self.latitude = b;
+	self.descr = c;
+	return self;
 }
-
-@property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
-@property (nonatomic, retain) IBOutlet UITableView *uiTableView;
-
--(IBAction) segmentedControlChanged;
 
 @end

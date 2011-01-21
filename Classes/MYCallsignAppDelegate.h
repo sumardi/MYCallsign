@@ -19,11 +19,13 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 @class SearchNavController;
+@class RepeaterNavController;
 
 @interface MYCallsignAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	UITabBarController *tabBarController;
 	IBOutlet SearchNavController *searchNavController;
+	IBOutlet RepeaterNavController *repeaterNavController;
 	
 	// Database variables
 	NSString *dbName;
@@ -31,12 +33,17 @@
 	
 	// An array to store the member objects
 	NSMutableArray *members;
+	
+	// An array to store the repeater objects
+	NSMutableArray *repeaters;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 @property (nonatomic, retain) NSMutableArray *members;
+@property (nonatomic, retain) NSMutableArray *repeaters;
 @property (nonatomic, retain) IBOutlet SearchNavController *searchNavController;
+@property (nonatomic, retain) IBOutlet RepeaterNavController *repeaterNavController;
 
 @end
 

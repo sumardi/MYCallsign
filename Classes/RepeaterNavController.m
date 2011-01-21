@@ -16,14 +16,10 @@
 // You should have received a copy of the GNU General Public License
 // along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
 
-#import "RepeaterViewController.h"
-#import "MYCallsignAppDelegate.h"
-#import "Repeater.h"
+#import "RepeaterNavController.h"
 
 
-@implementation RepeaterViewController
-
-@synthesize segmentedControl, uiTableView;
+@implementation RepeaterNavController
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -42,50 +38,12 @@
 }
 */
 
-
+/*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = @"Repeater";
-	
-	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
-	tableData = appDelegate.repeaters;
 }
-
--(IBAction) segmentedControlChanged {
-	NSLog(@"%i", segmentedControl.selectedSegmentIndex);
-}
-
-#pragma mark -
-#pragma mark Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-	return 1;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-	return [tableData count];
-}
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-    
-    // Set up the cell
-	Repeater *r = [tableData objectAtIndex:indexPath.row];
-	cell.textLabel.text = r.descr;
-	
-    return cell;
-}
+*/
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -110,8 +68,6 @@
 
 
 - (void)dealloc {
-	[segmentedControl release];
-	[uiTableView release];
     [super dealloc];
 }
 

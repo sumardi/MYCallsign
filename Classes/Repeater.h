@@ -19,16 +19,18 @@
 #import <UIKit/UIKit.h>
 
 
-@interface RepeaterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-	UISegmentedControl *segmentedControl;
-	UITableView *uiTableView;
-	
-	NSMutableArray *tableData;
+@interface Repeater : NSObject {
+	NSNumber *index;
+	NSString *longitude;
+	NSString *latitude;
+	NSString *descr;
 }
 
-@property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
-@property (nonatomic, retain) IBOutlet UITableView *uiTableView;
+@property (nonatomic, retain) NSNumber *index;
+@property (nonatomic, retain) NSString *longitude;
+@property (nonatomic, retain) NSString *latitude;
+@property (nonatomic, retain) NSString *descr;
 
--(IBAction) segmentedControlChanged;
+-(id) initWithLongitude:(NSString *)a latitude:(NSString *)b description:(NSString *)c;
 
 @end

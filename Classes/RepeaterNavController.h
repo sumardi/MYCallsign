@@ -19,16 +19,8 @@
 #import <UIKit/UIKit.h>
 
 
-@interface RepeaterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-	UISegmentedControl *segmentedControl;
-	UITableView *uiTableView;
-	
-	NSMutableArray *tableData;
+@interface RepeaterNavController : UINavigationController {
+
 }
-
-@property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
-@property (nonatomic, retain) IBOutlet UITableView *uiTableView;
-
--(IBAction) segmentedControlChanged;
 
 @end
