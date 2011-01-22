@@ -17,7 +17,6 @@
 // along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
 
 #import <UIKit/UIKit.h>
-//@class MemberDetailsViewController;
 
 @interface CallsignViewController : UITableViewController <UISearchBarDelegate> {
 	// A table list
