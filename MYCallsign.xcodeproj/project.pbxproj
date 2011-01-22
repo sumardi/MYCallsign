@@ -31,6 +31,10 @@
 		9FCF4FB712E98C5500699BBE /* RepeaterNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF4FB612E98C5500699BBE /* RepeaterNavController.m */; };
 		9FCF4FEA12E997D600699BBE /* Repeater.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF4FE912E997D600699BBE /* Repeater.m */; };
 		9FCF515712E9F68600699BBE /* mycallsign_db.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 9FCF515612E9F68600699BBE /* mycallsign_db.sqlite3 */; };
+		9FCF522B12EAF81500699BBE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF522A12EAF81500699BBE /* MapViewController.m */; };
+		9FCF522D12EAF86B00699BBE /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FCF522C12EAF86B00699BBE /* MapView.xib */; };
+		9FCF528E12EAFF5E00699BBE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCF528D12EAFF5E00699BBE /* MapKit.framework */; };
+		9FCF531F12EB0F6600699BBE /* MKAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF531E12EB0F6600699BBE /* MKAnnotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +74,12 @@
 		9FCF4FE812E997D600699BBE /* Repeater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repeater.h; sourceTree = "<group>"; };
 		9FCF4FE912E997D600699BBE /* Repeater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repeater.m; sourceTree = "<group>"; };
 		9FCF515612E9F68600699BBE /* mycallsign_db.sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = file; name = mycallsign_db.sqlite3; path = Databases/mycallsign_db.sqlite3; sourceTree = "<group>"; };
+		9FCF522912EAF81500699BBE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		9FCF522A12EAF81500699BBE /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		9FCF522C12EAF86B00699BBE /* MapView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
+		9FCF528D12EAFF5E00699BBE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9FCF531D12EB0F6600699BBE /* MKAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKAnnotation.h; sourceTree = "<group>"; };
+		9FCF531E12EB0F6600699BBE /* MKAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKAnnotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +91,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				9F7229ED12E37D010014C399 /* libsqlite3.0.dylib in Frameworks */,
+				9FCF528E12EAFF5E00699BBE /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +119,10 @@
 				9FCF4FE912E997D600699BBE /* Repeater.m */,
 				9FCF4FB512E98C5500699BBE /* RepeaterNavController.h */,
 				9FCF4FB612E98C5500699BBE /* RepeaterNavController.m */,
+				9FCF522912EAF81500699BBE /* MapViewController.h */,
+				9FCF522A12EAF81500699BBE /* MapViewController.m */,
+				9FCF531D12EB0F6600699BBE /* MKAnnotation.h */,
+				9FCF531E12EB0F6600699BBE /* MKAnnotation.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -159,6 +174,7 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				9F7229EC12E37D010014C399 /* libsqlite3.0.dylib */,
+				9FCF528D12EAFF5E00699BBE /* MapKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -171,6 +187,7 @@
 				9F72296812E228EE0014C399 /* CallsignView.xib */,
 				9F72296D12E2291E0014C399 /* RepeaterView.xib */,
 				9F72297212E2294E0014C399 /* AboutView.xib */,
+				9FCF522C12EAF86B00699BBE /* MapView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -245,6 +262,7 @@
 				9F72297312E2294E0014C399 /* AboutView.xib in Resources */,
 				9F6AE08D12E776C6005DECC6 /* MemberDetailsView.xib in Resources */,
 				9FCF515712E9F68600699BBE /* mycallsign_db.sqlite3 in Resources */,
+				9FCF522D12EAF86B00699BBE /* MapView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +283,8 @@
 				9F6AE08912E7756D005DECC6 /* MemberDetailsViewController.m in Sources */,
 				9FCF4FB712E98C5500699BBE /* RepeaterNavController.m in Sources */,
 				9FCF4FEA12E997D600699BBE /* Repeater.m in Sources */,
+				9FCF522B12EAF81500699BBE /* MapViewController.m in Sources */,
+				9FCF531F12EB0F6600699BBE /* MKAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

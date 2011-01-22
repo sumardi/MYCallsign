@@ -16,19 +16,24 @@
 // You should have received a copy of the GNU General Public License
 // along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
 
-#import <UIKit/UIKit.h>
+#import "MKAnnotation.h"
 
 
-@interface RepeaterViewController : UIViewController <UITableViewDelegate> {
-	UISegmentedControl *segmentedControl;
-	UITableView *uiTableView;
-	
-	NSMutableArray *tableData;
+@implementation MKAnnotation
+
+@synthesize coordinate, _title, _subtitle;
+
+- (id) initWithCoordinate:(CLLocationCoordinate2D)coord {
+    coordinate = coord;
+	return self;
 }
 
-@property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
-@property (nonatomic, retain) IBOutlet UITableView *uiTableView;
+- (NSString *)title {
+	return _title;
+}
 
--(IBAction) segmentedControlChanged;
+- (NSString *)subtitle {
+	return _subtitle;
+}
 
 @end

@@ -17,18 +17,21 @@
 // along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
-
-@interface RepeaterViewController : UIViewController <UITableViewDelegate> {
-	UISegmentedControl *segmentedControl;
-	UITableView *uiTableView;
-	
-	NSMutableArray *tableData;
+@interface MKAnnotation : NSObject <MKAnnotation> {
+	CLLocationCoordinate2D coordinate;
+	NSString *_title;
+	NSString *_subtitle;
 }
 
-@property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
-@property (nonatomic, retain) IBOutlet UITableView *uiTableView;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic, retain) NSString *_title;
+@property (nonatomic, retain) NSString *_subtitle;
 
--(IBAction) segmentedControlChanged;
+// add an init method so you can set the coordinate property on startup
+- (id) initWithCoordinate:(CLLocationCoordinate2D)coord;
+- (NSString *)title;
+- (NSString *)subtitle;
 
 @end

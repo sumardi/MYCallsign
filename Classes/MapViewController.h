@@ -17,18 +17,15 @@
 // along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+@class Repeater;
 
-
-@interface RepeaterViewController : UIViewController <UITableViewDelegate> {
-	UISegmentedControl *segmentedControl;
-	UITableView *uiTableView;
-	
-	NSMutableArray *tableData;
+@interface MapViewController : UIViewController <MKMapViewDelegate> {
+	MKMapView *mapView;
+	Repeater *selectedRepeater;
 }
 
-@property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
-@property (nonatomic, retain) IBOutlet UITableView *uiTableView;
-
--(IBAction) segmentedControlChanged;
+@property (nonatomic, retain) IBOutlet MKMapView *mapView;
+@property (nonatomic, retain) Repeater *selectedRepeater;
 
 @end

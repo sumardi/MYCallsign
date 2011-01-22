@@ -16,14 +16,13 @@
 // You should have received a copy of the GNU General Public License
 // along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
 
-#import "RepeaterViewController.h"
-#import "MYCallsignAppDelegate.h"
-#import "Repeater.h"
 #import "MapViewController.h"
+#import "Repeater.h"
+#import "MKAnnotation.h"
 
-@implementation RepeaterViewController
+@implementation MapViewController
 
-@synthesize segmentedControl, uiTableView;
+@synthesize mapView, selectedRepeater;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -42,66 +41,36 @@
 }
 */
 
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = @"Repeater";
+	self.title = @"Map";
 	
-	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
-	tableData = appDelegate.repeaters;
-}
-
--(IBAction) segmentedControlChanged {
-	NSLog(@"%i", segmentedControl.selectedSegmentIndex);
-}
-
-#pragma mark -
-#pragma mark Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-	return 1;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-	return [tableData count];
-}
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-    
-    // Set up the cell
-	Repeater *r = [tableData objectAtIndex:indexPath.row];
-	cell.textLabel.text = r.descr;
+	/*Region and Zoom*/
+	MKCoordinateRegion region;
+	MKCoordinateSpan span;
+	span.latitudeDelta=0.2;
+	span.longitudeDelta=0.2;
 	
-    return cell;
-}
-
-#pragma mark -
-#pragma mark Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	Repeater *r = (Repeater *)[tableData objectAtIndex:indexPath.row];
-	MapViewController *mapView = [[MapViewController alloc] initWithNibName:@"MapView" bundle:nil];
-	mapView.selectedRepeater = r;
+	CLLocationCoordinate2D location=mapView.userLocation.coordinate;
+	NSLog(@"lat: %f, long:%f", [selectedRepeater.latitude doubleValue], [selectedRepeater.longitude doubleValue]);
 	
-	// Pass the selected object to the new view controller.
-	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
-	[appDelegate.repeaterNavController pushViewController:mapView animated:YES];
-	[mapView release];
+	location.latitude=[selectedRepeater.latitude doubleValue];
+	location.longitude=[selectedRepeater.longitude doubleValue];
+	region.span=span;
+	region.center=location;
+	
+	[mapView setRegion:region animated:YES];
+	[mapView regionThatFits:region];
+	[mapView setZoomEnabled:TRUE];
+	
+	MKAnnotation *placemark = [[[MKAnnotation alloc] initWithCoordinate:location] autorelease];
+	placemark._title = [selectedRepeater.descr substringToIndex:6];
+	placemark._subtitle = [selectedRepeater.descr substringWithRange:NSMakeRange(7, [selectedRepeater.descr length]-8)];
+	NSLog(@"%i %i", [selectedRepeater.descr length]-1, [selectedRepeater.descr length]);
+	[mapView addAnnotation:placemark];
+	[mapView selectAnnotation:placemark animated:YES];
 }
-
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -126,8 +95,8 @@
 
 
 - (void)dealloc {
-	[segmentedControl release];
-	[uiTableView release];
+	[mapView release];
+	[selectedRepeater release];
     [super dealloc];
 }
 
