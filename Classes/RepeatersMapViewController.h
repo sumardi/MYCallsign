@@ -17,20 +17,28 @@
 // along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-
-@interface RepeaterViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate> {
-	UISegmentedControl *segmentedControl;
-	UITableView *uiTableView;
+@interface RepeatersMapViewController : UIViewController <MKMapViewDelegate,CLLocationManagerDelegate> {
+	MKMapView *mapView;
+	CLLocationManager *locationManager;
+	CLLocation *currentLocation;
 	
-	NSMutableArray *tableData;
-	NSMutableArray *copiedData;
+	MKCoordinateRegion region;
+	MKCoordinateSpan span;
+	
+	NSMutableArray *rpt;
 }
 
-@property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
-@property (nonatomic, retain) IBOutlet UITableView *uiTableView;
+@property (nonatomic, retain) IBOutlet MKMapView *mapView;
+@property (nonatomic, retain) CLLocation *currentLocation;
 
--(IBAction) segmentedControlChanged;
--(IBAction) viewMapClicked;
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation;
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error;
 
 @end

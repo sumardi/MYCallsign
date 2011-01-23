@@ -20,6 +20,7 @@
 #import "MYCallsignAppDelegate.h"
 #import "Repeater.h"
 #import "MapViewController.h"
+#import "RepeatersMapViewController.h"
 
 @implementation RepeaterViewController
 
@@ -41,6 +42,12 @@
 - (void)loadView {
 }
  */
+
+-(IBAction) viewMapClicked {
+	RepeatersMapViewController *rMapView = [[RepeatersMapViewController alloc] initWithNibName:@"RepeatersMapView" bundle:nil];
+	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[appDelegate.repeaterNavController pushViewController:rMapView animated:YES];
+}
 
 - (void)viewWillAppear:(BOOL)animated {
 	self.navigationController.navigationBarHidden = true;

@@ -29,6 +29,9 @@
 		9F7229ED12E37D010014C399 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7229EC12E37D010014C399 /* libsqlite3.0.dylib */; };
 		9F7229F412E37E160014C399 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7229F312E37E160014C399 /* Member.m */; };
 		9FCD477B12EB73C0007485AF /* RepeaterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FCD477A12EB73C0007485AF /* RepeaterView.xib */; };
+		9FCD4AE912EC64AA007485AF /* RepeatersMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCD4AE812EC64AA007485AF /* RepeatersMapViewController.m */; };
+		9FCD4AEB12EC65D4007485AF /* RepeatersMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FCD4AEA12EC65D4007485AF /* RepeatersMapView.xib */; };
+		9FCD4B3012EC6EB6007485AF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCD4B2F12EC6EB6007485AF /* CoreLocation.framework */; };
 		9FCF4FB712E98C5500699BBE /* RepeaterNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF4FB612E98C5500699BBE /* RepeaterNavController.m */; };
 		9FCF4FEA12E997D600699BBE /* Repeater.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF4FE912E997D600699BBE /* Repeater.m */; };
 		9FCF515712E9F68600699BBE /* mycallsign_db.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 9FCF515612E9F68600699BBE /* mycallsign_db.sqlite3 */; };
@@ -71,6 +74,10 @@
 		9F7229F212E37E160014C399 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
 		9F7229F312E37E160014C399 /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
 		9FCD477A12EB73C0007485AF /* RepeaterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepeaterView.xib; sourceTree = "<group>"; };
+		9FCD4AE712EC64AA007485AF /* RepeatersMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepeatersMapViewController.h; sourceTree = "<group>"; };
+		9FCD4AE812EC64AA007485AF /* RepeatersMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepeatersMapViewController.m; sourceTree = "<group>"; };
+		9FCD4AEA12EC65D4007485AF /* RepeatersMapView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepeatersMapView.xib; sourceTree = "<group>"; };
+		9FCD4B2F12EC6EB6007485AF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9FCF4FB512E98C5500699BBE /* RepeaterNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepeaterNavController.h; sourceTree = "<group>"; };
 		9FCF4FB612E98C5500699BBE /* RepeaterNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepeaterNavController.m; sourceTree = "<group>"; };
 		9FCF4FE812E997D600699BBE /* Repeater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repeater.h; sourceTree = "<group>"; };
@@ -94,6 +101,7 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				9F7229ED12E37D010014C399 /* libsqlite3.0.dylib in Frameworks */,
 				9FCF528E12EAFF5E00699BBE /* MapKit.framework in Frameworks */,
+				9FCD4B3012EC6EB6007485AF /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +133,8 @@
 				9FCF522A12EAF81500699BBE /* MapViewController.m */,
 				9FCF531D12EB0F6600699BBE /* MKAnnotation.h */,
 				9FCF531E12EB0F6600699BBE /* MKAnnotation.m */,
+				9FCD4AE712EC64AA007485AF /* RepeatersMapViewController.h */,
+				9FCD4AE812EC64AA007485AF /* RepeatersMapViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -177,6 +187,7 @@
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				9F7229EC12E37D010014C399 /* libsqlite3.0.dylib */,
 				9FCF528D12EAFF5E00699BBE /* MapKit.framework */,
+				9FCD4B2F12EC6EB6007485AF /* CoreLocation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -190,6 +201,7 @@
 				9F72297212E2294E0014C399 /* AboutView.xib */,
 				9FCF522C12EAF86B00699BBE /* MapView.xib */,
 				9FCD477A12EB73C0007485AF /* RepeaterView.xib */,
+				9FCD4AEA12EC65D4007485AF /* RepeatersMapView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,6 +279,7 @@
 				9FCF522D12EAF86B00699BBE /* MapView.xib in Resources */,
 				9F13B51612EB2EBC0016B06D /* map_ico.png in Resources */,
 				9FCD477B12EB73C0007485AF /* RepeaterView.xib in Resources */,
+				9FCD4AEB12EC65D4007485AF /* RepeatersMapView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +302,7 @@
 				9FCF4FEA12E997D600699BBE /* Repeater.m in Sources */,
 				9FCF522B12EAF81500699BBE /* MapViewController.m in Sources */,
 				9FCF531F12EB0F6600699BBE /* MKAnnotation.m in Sources */,
+				9FCD4AE912EC64AA007485AF /* RepeatersMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
