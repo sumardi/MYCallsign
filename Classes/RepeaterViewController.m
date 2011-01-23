@@ -40,8 +40,15 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 }
-*/
+ */
 
+- (void)viewWillAppear:(BOOL)animated {
+	self.navigationController.navigationBarHidden = true;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	self.navigationController.navigationBarHidden = false;
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
@@ -50,10 +57,23 @@
 	
 	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
 	tableData = appDelegate.repeaters;
+	copiedData = [tableData copy];
 }
 
 -(IBAction) segmentedControlChanged {
 	NSLog(@"%i", segmentedControl.selectedSegmentIndex);
+}
+
+#pragma mark -
+#pragma mark Search bar
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+	[tableData removeAllObjects];
+	
+	NSPredicate *predExists = [NSPredicate predicateWithFormat:@"%K contains[cd] %@", @"descr", searchText];
+	NSArray *t = [copiedData filteredArrayUsingPredicate:predExists];
+	[tableData addObjectsFromArray:t];
+	[uiTableView reloadData];
 }
 
 #pragma mark -
@@ -75,17 +95,31 @@
     
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-    
-    // Set up the cell
-	Repeater *r = [tableData objectAtIndex:indexPath.row];
-	cell.textLabel.text = r.descr;
+	UILabel *lblTemp1, *lblTemp2;
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
-    return cell;
+	CGRect CellFrame = CGRectMake(0, 0, 300, 60);
+	CGRect Label1Frame = CGRectMake(10, 8, 290, 16);
+	CGRect Label2Frame = CGRectMake(10, 26, 290, 15);
+		
+	cell = [[[UITableViewCell alloc] initWithFrame:CellFrame reuseIdentifier:CellIdentifier] autorelease];
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+	lblTemp1 = [[UILabel alloc] initWithFrame:Label1Frame];
+	lblTemp1.font = [UIFont boldSystemFontOfSize:16];
+	[cell.contentView addSubview:lblTemp1];		
+		
+	lblTemp2 = [[UILabel alloc] initWithFrame:Label2Frame];
+	lblTemp2.font = [UIFont systemFontOfSize:11];
+	lblTemp2.textColor = [UIColor lightGrayColor];
+	[cell.contentView addSubview:lblTemp2];
+		
+	Repeater *r = (Repeater *)[tableData objectAtIndex:indexPath.row];
+	lblTemp1.text = [r.descr substringWithRange:NSMakeRange(0, 6)];
+	lblTemp2.text = [r.descr substringWithRange:NSMakeRange(7, [r.descr length]-8)];
+	return cell;
 }
+
 
 #pragma mark -
 #pragma mark Table view delegate
@@ -100,6 +134,7 @@
 	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
 	[appDelegate.repeaterNavController pushViewController:mapView animated:YES];
 	[mapView release];
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

@@ -13,6 +13,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		9F13B51612EB2EBC0016B06D /* map_ico.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F13B51512EB2EBC0016B06D /* map_ico.png */; };
 		9F6AE06F12E773BA005DECC6 /* SearchNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AE06E12E773BA005DECC6 /* SearchNavController.m */; };
 		9F6AE08912E7756D005DECC6 /* MemberDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AE08812E7756D005DECC6 /* MemberDetailsViewController.m */; };
 		9F6AE08D12E776C6005DECC6 /* MemberDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F6AE08C12E776C6005DECC6 /* MemberDetailsView.xib */; };
@@ -23,11 +24,11 @@
 		9F72296712E2288C0014C399 /* CallsignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F72296612E2288C0014C399 /* CallsignViewController.m */; };
 		9F72296912E228EE0014C399 /* CallsignView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F72296812E228EE0014C399 /* CallsignView.xib */; };
 		9F72296C12E2290E0014C399 /* RepeaterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F72296B12E2290E0014C399 /* RepeaterViewController.m */; };
-		9F72296E12E2291E0014C399 /* RepeaterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F72296D12E2291E0014C399 /* RepeaterView.xib */; };
 		9F72297112E229410014C399 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F72297012E229410014C399 /* AboutViewController.m */; };
 		9F72297312E2294E0014C399 /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F72297212E2294E0014C399 /* AboutView.xib */; };
 		9F7229ED12E37D010014C399 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7229EC12E37D010014C399 /* libsqlite3.0.dylib */; };
 		9F7229F412E37E160014C399 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7229F312E37E160014C399 /* Member.m */; };
+		9FCD477B12EB73C0007485AF /* RepeaterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FCD477A12EB73C0007485AF /* RepeaterView.xib */; };
 		9FCF4FB712E98C5500699BBE /* RepeaterNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF4FB612E98C5500699BBE /* RepeaterNavController.m */; };
 		9FCF4FEA12E997D600699BBE /* Repeater.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF4FE912E997D600699BBE /* Repeater.m */; };
 		9FCF515712E9F68600699BBE /* mycallsign_db.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 9FCF515612E9F68600699BBE /* mycallsign_db.sqlite3 */; };
@@ -48,6 +49,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MYCallsign_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYCallsign_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MYCallsign-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MYCallsign-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		9F13B51512EB2EBC0016B06D /* map_ico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_ico.png; sourceTree = "<group>"; };
 		9F6AE06D12E773BA005DECC6 /* SearchNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchNavController.h; sourceTree = "<group>"; };
 		9F6AE06E12E773BA005DECC6 /* SearchNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchNavController.m; sourceTree = "<group>"; };
 		9F6AE08712E7756D005DECC6 /* MemberDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberDetailsViewController.h; sourceTree = "<group>"; };
@@ -62,13 +64,13 @@
 		9F72296812E228EE0014C399 /* CallsignView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CallsignView.xib; sourceTree = "<group>"; };
 		9F72296A12E2290E0014C399 /* RepeaterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepeaterViewController.h; sourceTree = "<group>"; };
 		9F72296B12E2290E0014C399 /* RepeaterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepeaterViewController.m; sourceTree = "<group>"; };
-		9F72296D12E2291E0014C399 /* RepeaterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepeaterView.xib; sourceTree = "<group>"; };
 		9F72296F12E229410014C399 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		9F72297012E229410014C399 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		9F72297212E2294E0014C399 /* AboutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutView.xib; sourceTree = "<group>"; };
 		9F7229EC12E37D010014C399 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		9F7229F212E37E160014C399 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
 		9F7229F312E37E160014C399 /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
+		9FCD477A12EB73C0007485AF /* RepeaterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepeaterView.xib; sourceTree = "<group>"; };
 		9FCF4FB512E98C5500699BBE /* RepeaterNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepeaterNavController.h; sourceTree = "<group>"; };
 		9FCF4FB612E98C5500699BBE /* RepeaterNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepeaterNavController.m; sourceTree = "<group>"; };
 		9FCF4FE812E997D600699BBE /* Repeater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repeater.h; sourceTree = "<group>"; };
@@ -185,9 +187,9 @@
 				9F6AE08C12E776C6005DECC6 /* MemberDetailsView.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				9F72296812E228EE0014C399 /* CallsignView.xib */,
-				9F72296D12E2291E0014C399 /* RepeaterView.xib */,
 				9F72297212E2294E0014C399 /* AboutView.xib */,
 				9FCF522C12EAF86B00699BBE /* MapView.xib */,
+				9FCD477A12EB73C0007485AF /* RepeaterView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -195,6 +197,7 @@
 		9F72293712E217410014C399 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9F13B51512EB2EBC0016B06D /* map_ico.png */,
 				9F72294B12E21D400014C399 /* about_ico.png */,
 				9F72294C12E21D400014C399 /* repeater_ico.png */,
 				9F72294D12E21D400014C399 /* search_ico.png */,
@@ -258,11 +261,12 @@
 				9F72294F12E21D400014C399 /* repeater_ico.png in Resources */,
 				9F72295012E21D400014C399 /* search_ico.png in Resources */,
 				9F72296912E228EE0014C399 /* CallsignView.xib in Resources */,
-				9F72296E12E2291E0014C399 /* RepeaterView.xib in Resources */,
 				9F72297312E2294E0014C399 /* AboutView.xib in Resources */,
 				9F6AE08D12E776C6005DECC6 /* MemberDetailsView.xib in Resources */,
 				9FCF515712E9F68600699BBE /* mycallsign_db.sqlite3 in Resources */,
 				9FCF522D12EAF86B00699BBE /* MapView.xib in Resources */,
+				9F13B51612EB2EBC0016B06D /* map_ico.png in Resources */,
+				9FCD477B12EB73C0007485AF /* RepeaterView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,7 +326,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -337,7 +341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;

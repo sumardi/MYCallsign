@@ -19,11 +19,12 @@
 #import <UIKit/UIKit.h>
 
 
-@interface RepeaterViewController : UIViewController <UITableViewDelegate> {
+@interface RepeaterViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate> {
 	UISegmentedControl *segmentedControl;
 	UITableView *uiTableView;
 	
 	NSMutableArray *tableData;
+	NSMutableArray *copiedData;
 }
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
