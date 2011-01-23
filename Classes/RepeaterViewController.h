@@ -17,18 +17,22 @@
 // along with MYCallsign. If not, see <http://www.gnu.org/licenses/>
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-
-@interface RepeaterViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate> {
+@interface RepeaterViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,CLLocationManagerDelegate> {
 	UISegmentedControl *segmentedControl;
 	UITableView *uiTableView;
 	
 	NSMutableArray *tableData;
 	NSMutableArray *copiedData;
+	
+	CLLocationManager *locationManager;
+	CLLocation *currentLocation;
 }
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 @property (nonatomic, retain) IBOutlet UITableView *uiTableView;
+@property (nonatomic, retain) CLLocation *currentLocation;
 
 -(IBAction) segmentedControlChanged;
 -(IBAction) viewMapClicked;

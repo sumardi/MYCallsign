@@ -24,7 +24,7 @@
 
 @implementation RepeaterViewController
 
-@synthesize segmentedControl, uiTableView;
+@synthesize segmentedControl, uiTableView, currentLocation;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -59,6 +59,13 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+	self.currentLocation = [[CLLocation alloc] init];
+	locationManager = [[CLLocationManager alloc] init];
+	locationManager.delegate = self;
+	locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+	locationManager.distanceFilter = kCLDistanceFilterNone;
+	[locationManager startUpdatingLocation];
+	
     [super viewDidLoad];
 	self.title = @"Repeater";
 	
@@ -67,20 +74,69 @@
 	copiedData = [tableData copy];
 }
 
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+    NSLog(@"Location: %@", [newLocation description]);
+	
+	self.currentLocation = newLocation;
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+	   didFailWithError:(NSError *)error
+{
+	NSLog(@"Error: %@", [error description]);
+}
+
+
 -(IBAction) segmentedControlChanged {
+	switch(segmentedControl.selectedSegmentIndex) {
+		case 0:
+			[tableData addObjectsFromArray:copiedData];
+			[uiTableView reloadData];
+		break;
+		case 1:
+			[tableData removeAllObjects];
+			for(Repeater *r in copiedData) {
+				CLLocation *rLoc = [[CLLocation alloc] initWithLatitude:[r.latitude doubleValue] longitude:[r.longitude doubleValue]];
+				double d = [rLoc distanceFromLocation:self.currentLocation];
+				NSLog(@"%g km", d/1000);
+				if((d/1000) < 20) {
+					[tableData addObject:r];
+				}
+			}
+			[uiTableView reloadData];
+		break;
+	}
 	NSLog(@"%i", segmentedControl.selectedSegmentIndex);
 }
 
 #pragma mark -
 #pragma mark Search bar
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-	[tableData removeAllObjects];
-	
-	NSPredicate *predExists = [NSPredicate predicateWithFormat:@"%K contains[cd] %@", @"descr", searchText];
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+	NSPredicate *predExists = [NSPredicate predicateWithFormat:@"%K contains[cd] %@", @"descr", searchBar.text];
 	NSArray *t = [copiedData filteredArrayUsingPredicate:predExists];
+	[tableData removeAllObjects];
 	[tableData addObjectsFromArray:t];
 	[uiTableView reloadData];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+	NSPredicate *predExists = [NSPredicate predicateWithFormat:@"%K contains[cd] %@", @"descr", searchText];
+	NSArray *t = [copiedData filteredArrayUsingPredicate:predExists];
+	[tableData removeAllObjects];
+	[tableData addObjectsFromArray:t];
+	[uiTableView reloadData];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [tableData addObjectsFromArray:copiedData];
+	[uiTableView reloadData];
+	[segmentedControl setSelectedSegmentIndex:0];
+	NSLog(@"called");
 }
 
 #pragma mark -
@@ -122,8 +178,16 @@
 	[cell.contentView addSubview:lblTemp2];
 		
 	Repeater *r = (Repeater *)[tableData objectAtIndex:indexPath.row];
+	
 	lblTemp1.text = [r.descr substringWithRange:NSMakeRange(0, 6)];
-	lblTemp2.text = [r.descr substringWithRange:NSMakeRange(7, [r.descr length]-8)];
+
+	if(segmentedControl.selectedSegmentIndex == 1) {
+		CLLocation *rLoc = [[CLLocation alloc] initWithLatitude:[r.latitude doubleValue] longitude:[r.longitude doubleValue]];
+		double d = [rLoc distanceFromLocation:self.currentLocation];
+		lblTemp2.text = [NSString stringWithFormat:@"%2.2fKM", d/1000];
+	} else {
+		lblTemp2.text = [r.descr substringWithRange:NSMakeRange(7, [r.descr length]-8)];
+	}
 	return cell;
 }
 
@@ -170,6 +234,7 @@
 - (void)dealloc {
 	[segmentedControl release];
 	[uiTableView release];
+	[currentLocation release];
     [super dealloc];
 }
 
