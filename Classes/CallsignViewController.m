@@ -219,7 +219,7 @@
 	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
 	[appDelegate.searchNavController pushViewController:mDetailsView animated:YES];
 	[mDetailsView release];
-
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
