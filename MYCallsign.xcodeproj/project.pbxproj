@@ -33,6 +33,7 @@
 		9FCD4AEB12EC65D4007485AF /* RepeatersMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FCD4AEA12EC65D4007485AF /* RepeatersMapView.xib */; };
 		9FCD4B3012EC6EB6007485AF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCD4B2F12EC6EB6007485AF /* CoreLocation.framework */; };
 		9FCD4EFA12EDEBA5007485AF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCD4EF912EDEBA5007485AF /* Default.png */; };
+		9FCD4F4C12EDF633007485AF /* about.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCD4F4B12EDF633007485AF /* about.png */; };
 		9FCF4FB712E98C5500699BBE /* RepeaterNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF4FB612E98C5500699BBE /* RepeaterNavController.m */; };
 		9FCF4FEA12E997D600699BBE /* Repeater.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCF4FE912E997D600699BBE /* Repeater.m */; };
 		9FCF515712E9F68600699BBE /* mycallsign_db.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 9FCF515612E9F68600699BBE /* mycallsign_db.sqlite3 */; };
@@ -80,6 +81,7 @@
 		9FCD4AEA12EC65D4007485AF /* RepeatersMapView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepeatersMapView.xib; sourceTree = "<group>"; };
 		9FCD4B2F12EC6EB6007485AF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9FCD4EF912EDEBA5007485AF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = SOURCE_ROOT; };
+		9FCD4F4B12EDF633007485AF /* about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = about.png; path = Images/about.png; sourceTree = SOURCE_ROOT; };
 		9FCF4FB512E98C5500699BBE /* RepeaterNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepeaterNavController.h; sourceTree = "<group>"; };
 		9FCF4FB612E98C5500699BBE /* RepeaterNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepeaterNavController.m; sourceTree = "<group>"; };
 		9FCF4FE812E997D600699BBE /* Repeater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repeater.h; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 		9F71F9BD12E1B2D3001595A3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9FCD4F4B12EDF633007485AF /* about.png */,
 				9FCD4EF912EDEBA5007485AF /* Default.png */,
 				9F6AE08C12E776C6005DECC6 /* MemberDetailsView.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
@@ -284,6 +287,7 @@
 				9FCD477B12EB73C0007485AF /* RepeaterView.xib in Resources */,
 				9FCD4AEB12EC65D4007485AF /* RepeatersMapView.xib in Resources */,
 				9FCD4EFA12EDEBA5007485AF /* Default.png in Resources */,
+				9FCD4F4C12EDF633007485AF /* about.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
