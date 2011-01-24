@@ -24,40 +24,25 @@
 
 @synthesize mapView, selectedRepeater;
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
+#pragma mark -
+#pragma mark View lifecycle
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = @"Map";
 	
-	/*Region and Zoom*/
+	// Region and Zoom.
 	MKCoordinateRegion region;
 	MKCoordinateSpan span;
-	span.latitudeDelta=0.2;
-	span.longitudeDelta=0.2;
+	span.latitudeDelta = 0.2;
+	span.longitudeDelta = 0.2;
 	
-	CLLocationCoordinate2D location=mapView.userLocation.coordinate;
-	NSLog(@"lat: %f, long:%f", [selectedRepeater.latitude doubleValue], [selectedRepeater.longitude doubleValue]);
+	CLLocationCoordinate2D location = mapView.userLocation.coordinate;
 	
-	location.latitude=[selectedRepeater.latitude doubleValue];
-	location.longitude=[selectedRepeater.longitude doubleValue];
-	region.span=span;
+	location.latitude = [selectedRepeater.latitude doubleValue];
+	location.longitude = [selectedRepeater.longitude doubleValue];
+	region.span = span;
 	region.center=location;
 	
 	[mapView setRegion:region animated:YES];
@@ -67,33 +52,25 @@
 	MKAnnotation *placemark = [[[MKAnnotation alloc] initWithCoordinate:location] autorelease];
 	placemark._title = [selectedRepeater.descr substringToIndex:6];
 	placemark._subtitle = [selectedRepeater.descr substringWithRange:NSMakeRange(7, [selectedRepeater.descr length]-8)];
-	NSLog(@"%i %i", [selectedRepeater.descr length]-1, [selectedRepeater.descr length]);
 	[mapView addAnnotation:placemark];
 	[mapView selectAnnotation:placemark animated:YES];
 }
 
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
+#pragma mark -
+#pragma mark Memory management
 
+// Sent to the view controller when the application receives a memory warning.
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
 }
 
+// Called when the controller’s view is released from memory.
 - (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
-
+// Deallocates the memory occupied by the receiver.
 - (void)dealloc {
 	[mapView release];
 	[selectedRepeater release];

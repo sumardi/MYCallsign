@@ -27,8 +27,10 @@
 
 @synthesize mapView, currentLocation;
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+#pragma mark -
+#pragma mark View lifecycle
 
+// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -39,29 +41,25 @@
 		locationManager.distanceFilter = kCLDistanceFilterNone;
 		[locationManager startUpdatingLocation];
     }
-	NSLog(@"%@", self.currentLocation.coordinate);
     return self;
 }
 
+#pragma mark -
+#pragma mark Core Location delegate
 
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation
-{
-    NSLog(@"Location: %@", [newLocation description]);
-	
-	region.span = span; // Set the region's span to the new span.
+// Tells the delegate that a new location value is available.
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+	region.span = span; 
 	region.center = newLocation.coordinate;
 	[mapView setRegion:region animated:YES];
 }
 
-- (void)locationManager:(CLLocationManager *)manager
-	   didFailWithError:(NSError *)error
-{
-	NSLog(@"Error: %@", [error description]);
+// Tells the delegate that the location manager was unable to retrieve a location value.
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+	
 }
 
-
+// Returns the view associated with the specified annotation object.
 - (MKAnnotationView *) mapView: (MKMapView *) mapView_ viewForAnnotation: (id ) annotation_ {
 	MKPinAnnotationView *pin = (MKPinAnnotationView *) [mapView dequeueReusableAnnotationViewWithIdentifier: @"YourPinId"];
 	if ([annotation_ isKindOfClass:[MKUserLocation class]])
@@ -73,7 +71,7 @@
 		pin.annotation = annotation_;
 	}
 	pin.pinColor = MKPinAnnotationColorRed;
-	[pin setCanShowCallout:YES]; // IMPORTANT
+	[pin setCanShowCallout:YES];
 	pin.animatesDrop = YES;
 	return pin;
 }
@@ -111,28 +109,18 @@
 	[mapView setRegion:region animated:YES];
 }
 
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
+// Sent to the view controller when the application receives a memory warning.
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
 }
 
+// Called when the controller’s view is released from memory.
 - (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
-
+// Deallocates the memory occupied by the receiver.
 - (void)dealloc {
 	[mapView release];
 	[currentLocation release];

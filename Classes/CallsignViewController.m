@@ -26,23 +26,9 @@
 @synthesize tableCallsignList, uiTableView, uiSearchBar, membersArray;
 
 #pragma mark -
-#pragma mark Initialization
-
-/*
-- (id)initWithStyle:(UITableViewStyle)style {
-    // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
-
-
-#pragma mark -
 #pragma mark View lifecycle
 
+// Called after the view controller has loaded.
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = @"Search";
@@ -63,58 +49,18 @@
 		[s addObjectsFromArray:t];
 	}
 	self.membersArray = [s allObjects];
-	
-	// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
-
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-*/
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-*/
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
 
 #pragma mark -
 #pragma mark Search bar
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-	NSLog(@"searchBarTextDidBeginEditing method");
-	// Do nothing
-}
-
-
+// Tells the delegate that the user changed the search text.
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
 	NSLog(@"searchBar method");
 	if([searchText isEqualToString:@""] || searchText == nil) {
 		[tableData removeAllObjects];
-		//tableData = [copiedData copyWithZone:nil];
 		[tableData addObjectsFromArray:copiedData];
-		//tableData = [copiedData copy];
 		[uiTableView reloadData];
-		//return;
 	} else {
 		[tableData removeAllObjects];
 	
@@ -133,8 +79,8 @@
 	}
 }
 
+// Tells the delegate that the cancel button was tapped.
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-	NSLog(@"searchBarCancelButtonClicked method");
 	[tableData removeLastObject];
 	[tableData addObjectsFromArray:copiedData];
 	[searchBar resignFirstResponder];
@@ -142,8 +88,8 @@
 	return;
 }
 
+// Tells the delegate that the search button was tapped.
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-	NSLog(@"searchBarSearchButtonClicked method");
 	NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
 	[row setValue:[NSString stringWithString:@""] forKey:@"headerTitle"];
 	
@@ -156,8 +102,8 @@
 	[uiTableView reloadData];
 }
 
+// Tells the delegate that the search results list button was tapped.
 - (void)searchBarResultsListButtonClicked:(UISearchBar *)searchBar {
-	NSLog(@"searchBarResultsListButtonClicked method");
 	NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
 	[row setValue:[NSString stringWithString:@""] forKey:@"headerTitle"];
 	
@@ -173,28 +119,32 @@
 #pragma mark -
 #pragma mark Table view data source
 
+// The number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
 	return tableData.count;
 }
 
-
+// The number of rows in a given specific section of the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
 	return [[[tableData objectAtIndex:section] objectForKey:@"rowValues"] count] ;
 }
 
+// The titles for the sections for a table view.
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
 	// Return the section titles to display.
 	return [tableData valueForKey:@"headerTitle"];
 }
 
+// The index of the section having the given title and section title index.
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
 	// Return an index value of the section you're currently touching in the index.
 	return [[[tableData valueForKey:@"headerTitle"] retain] indexOfObject:title];
 }
 
-- (NSString *)tableView:(UITableView *)aTableView titleForHeaderInSection:(NSInteger)section {
+// The title of the header of the specified section of the table view.
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	// Return titles to each section header.
 	return [[tableData objectAtIndex:section] objectForKey:@"headerTitle"];
 	
@@ -218,57 +168,18 @@
 }
 
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source.
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }   
-}
-*/
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 #pragma mark -
 #pragma mark Table view delegate
 
+// Tells the delegate that the specified row is now selected.
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
+	// Pass the selected member object to the MemberDetails view controller.
 	Member *m = (Member *)[[[tableData objectAtIndex:indexPath.section] objectForKey:@"rowValues"] objectAtIndex:indexPath.row];
 	MemberDetailsViewController *mDetailsView = [[MemberDetailsViewController alloc] initWithNibName:@"MemberDetailsView" bundle:nil];
 	mDetailsView.selectedMember = m;
 	[m release];
 	
-	// Pass the selected object to the new view controller.
+	// Create and push MemberDetails view controller.
 	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
 	[appDelegate.searchNavController pushViewController:mDetailsView animated:YES];
 	[mDetailsView release];
@@ -279,19 +190,13 @@
 #pragma mark -
 #pragma mark Memory management
 
+// Sent to the view controller when the application receives a memory warning.
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Relinquish ownership any cached data, images, etc. that aren't in use.
 }
 
-- (void)viewDidUnload {
-    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-    // For example: self.myOutlet = nil;
-}
-
-
+// Deallocates the memory occupied by the receiver.
 - (void)dealloc {
 	[tableCallsignList release];
 	[uiTableView release];

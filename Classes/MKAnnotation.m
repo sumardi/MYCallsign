@@ -23,15 +23,18 @@
 
 @synthesize coordinate, _title, _subtitle;
 
+// Add an init method so you can set the coordinate property on startup.
 - (id) initWithCoordinate:(CLLocationCoordinate2D)coord {
     coordinate = coord;
 	return self;
 }
 
+// Return annotation title.
 - (NSString *)title {
 	return _title;
 }
 
+// Return annotation subtitle.
 - (NSString *)subtitle {
 	return _subtitle;
 }

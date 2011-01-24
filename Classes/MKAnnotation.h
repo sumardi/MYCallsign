@@ -29,7 +29,6 @@
 @property (nonatomic, retain) NSString *_title;
 @property (nonatomic, retain) NSString *_subtitle;
 
-// add an init method so you can set the coordinate property on startup
 - (id) initWithCoordinate:(CLLocationCoordinate2D)coord;
 - (NSString *)title;
 - (NSString *)subtitle;

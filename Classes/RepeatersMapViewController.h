@@ -34,11 +34,7 @@
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) CLLocation *currentLocation;
 
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation;
-
-- (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error;
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation;
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error;
 
 @end

@@ -19,7 +19,6 @@
 #import <UIKit/UIKit.h>
 
 @interface CallsignViewController : UITableViewController <UISearchBarDelegate> {
-	// A table list
 	IBOutlet UITableViewController *tableCallsignList;
 	UITableView *uiTableView;
 	NSMutableArray *tableData;

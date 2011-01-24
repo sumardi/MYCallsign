@@ -26,33 +26,22 @@
 
 @synthesize segmentedControl, uiTableView, currentLocation;
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
+#pragma mark -
+#pragma mark View lifecycle
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
- */
-
+// View the selected repeater in map.
 -(IBAction) viewMapClicked {
 	RepeatersMapViewController *rMapView = [[RepeatersMapViewController alloc] initWithNibName:@"RepeatersMapView" bundle:nil];
 	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
 	[appDelegate.repeaterNavController pushViewController:rMapView animated:YES];
 }
 
+// Notifies the view controller that its view is about to be become visible.
 - (void)viewWillAppear:(BOOL)animated {
 	self.navigationController.navigationBarHidden = true;
 }
 
+// Notifies the view controller that its view is about to be dismissed, covered, or otherwise hidden from view.
 - (void)viewWillDisappear:(BOOL)animated {
 	self.navigationController.navigationBarHidden = false;
 }
@@ -77,25 +66,24 @@
 	copiedData = [tableData copyWithZone:nil];
 }
 
+#pragma mark -
+#pragma mark Core Location delegate
 
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation
-{
-    NSLog(@"Location: %@", [newLocation description]);
-	
+// Tells the delegate that a new location value is available.
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
 	self.currentLocation = newLocation;
 }
 
-- (void)locationManager:(CLLocationManager *)manager
-	   didFailWithError:(NSError *)error
-{
-	NSLog(@"Error: %@", [error description]);
+// Tells the delegate that the location manager was unable to retrieve a location value.
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+	
 }
 
+#pragma mark -
+#pragma mark Segmented Control
 
+// Tells the table view to change data.
 -(IBAction) segmentedControlChanged {
-	NSLog(@"segmentedControlChanged called");
 	switch(segmentedControl.selectedSegmentIndex) {
 		case 0:
 			[tableData removeAllObjects];
@@ -106,8 +94,8 @@
 			[tableData removeAllObjects];
 			for(Repeater *r in copiedData) {
 				CLLocation *rLoc = [[CLLocation alloc] initWithLatitude:[r.latitude doubleValue] longitude:[r.longitude doubleValue]];
-				double d = [rLoc distanceFromLocation:self.currentLocation];
-				NSLog(@"%g km", d/1000);
+				// Count the distance of specific repeater from user current location.
+				double d = [rLoc distanceFromLocation:self.currentLocation]; 
 				if((d/1000) < 20) {
 					[tableData addObject:r];
 				}
@@ -115,14 +103,13 @@
 			[uiTableView reloadData];
 		break;
 	}
-	NSLog(@"%i", segmentedControl.selectedSegmentIndex);
 }
 
 #pragma mark -
-#pragma mark Search bar
+#pragma mark Search bar delegate
 
+// Tells the delegate that the search button was tapped.
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-	NSLog(@"searchBarSearchButtonClicked called");
 	NSPredicate *predExists = [NSPredicate predicateWithFormat:@"%K contains[cd] %@", @"descr", searchBar.text];
 	NSArray *t = [copiedData filteredArrayUsingPredicate:predExists];
 	[tableData removeAllObjects];
@@ -130,23 +117,23 @@
 	[uiTableView reloadData];
 }
 
+// Tells the delegate that the user changed the search text.
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-	NSLog(@"searchBar called");
 	if([searchText isEqualToString:@""] || searchText == nil) {
 		[tableData removeAllObjects];
 		[tableData addObjectsFromArray:copiedData];
 		[uiTableView reloadData];
 	} else {
-	NSPredicate *predExists = [NSPredicate predicateWithFormat:@"%K contains[cd] %@", @"descr", searchText];
-	NSArray *t = [copiedData filteredArrayUsingPredicate:predExists];
-	[tableData removeAllObjects];
-	[tableData addObjectsFromArray:t];
-	[uiTableView reloadData];
+		NSPredicate *predExists = [NSPredicate predicateWithFormat:@"%K contains[cd] %@", @"descr", searchText];
+		NSArray *t = [copiedData filteredArrayUsingPredicate:predExists];
+		[tableData removeAllObjects];
+		[tableData addObjectsFromArray:t];
+		[uiTableView reloadData];
 	}
 }
 
+// Tells the delegate that the cancel button was tapped.
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-	NSLog(@"searchBarCancelButtonClicked called");
 	[tableData removeAllObjects];
     [tableData addObjectsFromArray:copiedData];
 	[uiTableView reloadData];
@@ -155,12 +142,13 @@
 #pragma mark -
 #pragma mark Table view data source
 
+// The number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
 	return 1;
 }
 
-
+// The number of rows in a given section of a table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
 	return [tableData count];
@@ -208,42 +196,33 @@
 #pragma mark -
 #pragma mark Table view delegate
 
+// Tells the delegate that the specified row is now selected.
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
+	// Pass the selected repeater to the Map view controller.
 	Repeater *r = (Repeater *)[tableData objectAtIndex:indexPath.row];
 	MapViewController *mapView = [[MapViewController alloc] initWithNibName:@"MapView" bundle:nil];
 	mapView.selectedRepeater = r;
 	
-	// Pass the selected object to the new view controller.
+	// Push the view to the Map view controller.
 	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
 	[appDelegate.repeaterNavController pushViewController:mapView animated:YES];
 	[mapView release];
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
+// Sent to the view controller when the application receives a memory warning.
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
 }
 
+// Called when the controller’s view is released from memory.
 - (void)viewDidUnload {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
-
+// Deallocates the memory occupied by the receiver.
 - (void)dealloc {
 	[segmentedControl release];
 	[uiTableView release];
