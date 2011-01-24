@@ -56,7 +56,6 @@
 
 // Tells the delegate that the user changed the search text.
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-	NSLog(@"searchBar method");
 	if([searchText isEqualToString:@""] || searchText == nil) {
 		[tableData removeAllObjects];
 		[tableData addObjectsFromArray:copiedData];
