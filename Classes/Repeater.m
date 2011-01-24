@@ -30,4 +30,12 @@
 	return self;
 }
 
+-(id) copyWithZone: (NSZone *) zone {
+    Repeater *newRepeater = [[Repeater allocWithZone:zone] init];
+    [newRepeater setLongitude:longitude];
+    [newRepeater setLatitude:latitude];
+    [newRepeater setDescr:descr];
+    return newRepeater;
+}
+
 @end

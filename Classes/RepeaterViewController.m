@@ -69,9 +69,12 @@
     [super viewDidLoad];
 	self.title = @"Repeater";
 	
+	tableData = [[NSMutableArray alloc] init];
+	copiedData = [[NSMutableArray alloc] init];
+	
 	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
 	tableData = appDelegate.repeaters;
-	copiedData = [tableData copy];
+	copiedData = [tableData copyWithZone:nil];
 }
 
 
@@ -92,8 +95,10 @@
 
 
 -(IBAction) segmentedControlChanged {
+	NSLog(@"segmentedControlChanged called");
 	switch(segmentedControl.selectedSegmentIndex) {
 		case 0:
+			[tableData removeAllObjects];
 			[tableData addObjectsFromArray:copiedData];
 			[uiTableView reloadData];
 		break;
@@ -117,6 +122,7 @@
 #pragma mark Search bar
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+	NSLog(@"searchBarSearchButtonClicked called");
 	NSPredicate *predExists = [NSPredicate predicateWithFormat:@"%K contains[cd] %@", @"descr", searchBar.text];
 	NSArray *t = [copiedData filteredArrayUsingPredicate:predExists];
 	[tableData removeAllObjects];
@@ -125,18 +131,25 @@
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+	NSLog(@"searchBar called");
+	if([searchText isEqualToString:@""] || searchText == nil) {
+		[tableData removeAllObjects];
+		[tableData addObjectsFromArray:copiedData];
+		[uiTableView reloadData];
+	} else {
 	NSPredicate *predExists = [NSPredicate predicateWithFormat:@"%K contains[cd] %@", @"descr", searchText];
 	NSArray *t = [copiedData filteredArrayUsingPredicate:predExists];
 	[tableData removeAllObjects];
 	[tableData addObjectsFromArray:t];
 	[uiTableView reloadData];
+	}
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+	NSLog(@"searchBarCancelButtonClicked called");
+	[tableData removeAllObjects];
     [tableData addObjectsFromArray:copiedData];
 	[uiTableView reloadData];
-	[segmentedControl setSelectedSegmentIndex:0];
-	NSLog(@"called");
 }
 
 #pragma mark -

@@ -32,5 +32,6 @@
 @property (nonatomic, retain) NSString *descr;
 
 -(id) initWithLongitude:(NSString *)a latitude:(NSString *)b description:(NSString *)c;
+-(id) copyWithZone: (NSZone *) zone;
 
 @end
