@@ -47,8 +47,12 @@
     [super viewDidLoad];
 	self.title = @"Search";
 	
+	tableData = [[NSMutableArray alloc] init];
+	copiedData = [[NSMutableArray alloc] init];
+	
 	MYCallsignAppDelegate *appDelegate = (MYCallsignAppDelegate *)[[UIApplication sharedApplication] delegate];
 	tableData = appDelegate.members;
+	copiedData = [tableData copyWithZone:nil];
 	
 	NSMutableSet *set = [NSMutableSet setWithArray:[tableData valueForKey:@"rowValues"]];
 	NSArray *q = [set allObjects];
@@ -96,22 +100,71 @@
 #pragma mark -
 #pragma mark Search bar
 
-- (void) searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
-	[tableData removeAllObjects];
-	[uiTableView reloadData];
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+	NSLog(@"searchBarTextDidBeginEditing method");
+	// Do nothing
 }
 
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-	[tableData removeAllObjects];
+	NSLog(@"searchBar method");
+	if([searchText isEqualToString:@""] || searchText == nil) {
+		[tableData removeAllObjects];
+		//tableData = [copiedData copyWithZone:nil];
+		[tableData addObjectsFromArray:copiedData];
+		//tableData = [copiedData copy];
+		[uiTableView reloadData];
+		//return;
+	} else {
+		[tableData removeAllObjects];
 	
+		NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+		NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
+		[row setValue:[NSString stringWithString:@""] forKey:@"headerTitle"];
+	
+		NSPredicate *predExists = [NSPredicate predicateWithFormat:
+								@"(%K contains[cd] %@) || (%K contains[cd] %@)", @"handle", searchText, @"callsign", searchText];
+		NSArray *filteredArray = [self.membersArray filteredArrayUsingPredicate:predExists];
+
+		[row setValue:filteredArray forKey:@"rowValues"];
+		[resultArray addObject:row];
+		[tableData addObjectsFromArray:resultArray];
+		[uiTableView reloadData];
+	}
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+	NSLog(@"searchBarCancelButtonClicked method");
+	[tableData removeLastObject];
+	[tableData addObjectsFromArray:copiedData];
+	[searchBar resignFirstResponder];
+	[uiTableView reloadData];
+	return;
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+	NSLog(@"searchBarSearchButtonClicked method");
 	NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
 	[row setValue:[NSString stringWithString:@""] forKey:@"headerTitle"];
 	
 	NSPredicate *predExists = [NSPredicate predicateWithFormat:
-								@"(%K contains[cd] %@) || (%K contains[cd] %@)", @"handle", searchText, @"callsign", searchText];
+							   @"(%K contains[cd] %@) || (%K contains[cd] %@)", @"handle", searchBar.text, @"callsign", searchBar.text];
 	NSArray *filteredArray = [self.membersArray filteredArrayUsingPredicate:predExists];
+	
+	[row setValue:filteredArray forKey:@"rowValues"];
+	[tableData addObject:row];
+	[uiTableView reloadData];
+}
 
+- (void)searchBarResultsListButtonClicked:(UISearchBar *)searchBar {
+	NSLog(@"searchBarResultsListButtonClicked method");
+	NSMutableDictionary *row = [[[NSMutableDictionary alloc] init] autorelease];
+	[row setValue:[NSString stringWithString:@""] forKey:@"headerTitle"];
+	
+	NSPredicate *predExists = [NSPredicate predicateWithFormat:
+							   @"(%K contains[cd] %@) || (%K contains[cd] %@)", @"handle", searchBar.text, @"callsign", searchBar.text];
+	NSArray *filteredArray = [self.membersArray filteredArrayUsingPredicate:predExists];
+	
 	[row setValue:filteredArray forKey:@"rowValues"];
 	[tableData addObject:row];
 	[uiTableView reloadData];

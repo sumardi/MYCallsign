@@ -23,7 +23,7 @@
 	IBOutlet UITableViewController *tableCallsignList;
 	UITableView *uiTableView;
 	NSMutableArray *tableData;
-	NSMutableArray *filteredData;
+	NSMutableArray *copiedData;
 	UISearchBar *uiSearchBar;
 	
 	NSArray *membersArray;

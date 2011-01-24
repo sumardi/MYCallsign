@@ -30,4 +30,13 @@
 	return self;
 }
 
+-(id) copyWithZone: (NSZone *) zone {
+    Member *newMember = [[Member allocWithZone:zone] init];
+    [newMember setCallsign:callsign];
+    [newMember setHandle:handle];
+    [newMember setExpire:expire];
+    [newMember setAa:aa];
+    return newMember;
+}
+
 @end

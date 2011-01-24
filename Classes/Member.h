@@ -19,7 +19,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface Member : NSObject {
+@interface Member : NSObject <NSCopying> {
 	NSNumber *index;
 	NSString *callsign;
 	NSString *handle;
@@ -34,5 +34,6 @@
 @property (nonatomic, retain) NSString *aa;
 
 -(id) iniWithCallsign:(NSString *)c handle:(NSString *)h expire:(NSString *)e aa:(NSString *)a;
+-(id) copyWithZone: (NSZone *) zone;
 
 @end
