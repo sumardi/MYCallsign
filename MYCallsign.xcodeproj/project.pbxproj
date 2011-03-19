@@ -14,6 +14,7 @@
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		9F13B51612EB2EBC0016B06D /* map_ico.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F13B51512EB2EBC0016B06D /* map_ico.png */; };
+		9F4FFEC8133485D400B21B48 /* MYCallsign_ico_114.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4FFEC7133485D400B21B48 /* MYCallsign_ico_114.png */; };
 		9F6AE06F12E773BA005DECC6 /* SearchNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AE06E12E773BA005DECC6 /* SearchNavController.m */; };
 		9F6AE08912E7756D005DECC6 /* MemberDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AE08812E7756D005DECC6 /* MemberDetailsViewController.m */; };
 		9F6AE08D12E776C6005DECC6 /* MemberDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F6AE08C12E776C6005DECC6 /* MemberDetailsView.xib */; };
@@ -55,6 +56,7 @@
 		32CA4F630368D1EE00C91783 /* MYCallsign_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYCallsign_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MYCallsign-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MYCallsign-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		9F13B51512EB2EBC0016B06D /* map_ico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_ico.png; sourceTree = "<group>"; };
+		9F4FFEC7133485D400B21B48 /* MYCallsign_ico_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MYCallsign_ico_114.png; sourceTree = "<group>"; };
 		9F6AE06D12E773BA005DECC6 /* SearchNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchNavController.h; sourceTree = "<group>"; };
 		9F6AE06E12E773BA005DECC6 /* SearchNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchNavController.m; sourceTree = "<group>"; };
 		9F6AE08712E7756D005DECC6 /* MemberDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberDetailsViewController.h; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 		9F72293712E217410014C399 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9F4FFEC7133485D400B21B48 /* MYCallsign_ico_114.png */,
 				9F13B51512EB2EBC0016B06D /* map_ico.png */,
 				9F72294B12E21D400014C399 /* about_ico.png */,
 				9F72294C12E21D400014C399 /* repeater_ico.png */,
@@ -288,6 +291,7 @@
 				9FCD4AEB12EC65D4007485AF /* RepeatersMapView.xib in Resources */,
 				9FCD4EFA12EDEBA5007485AF /* Default.png in Resources */,
 				9FCD4F4C12EDF633007485AF /* about.png in Resources */,
+				9F4FFEC8133485D400B21B48 /* MYCallsign_ico_114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +348,37 @@
 			};
 			name = Release;
 		};
+		9FCD4F6D12EDFDFE007485AF /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos;
+			};
+			name = Distribution;
+		};
+		9FCD4F6E12EDFDFE007485AF /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Software Machine Development";
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MYCallsign_Prefix.pch;
+				INFOPLIST_FILE = "MYCallsign-Info.plist";
+				PRODUCT_NAME = MYCallsign;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "25A302ED-350E-4776-BD83-4A41D79248D9";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Distribution;
+		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -383,6 +418,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				9FCD4F6E12EDFDFE007485AF /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -392,6 +428,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				9FCD4F6D12EDFDFE007485AF /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
