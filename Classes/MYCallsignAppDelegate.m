@@ -21,12 +21,18 @@
 #import "SearchNavController.h"
 #import "RepeaterNavController.h"
 #import "Repeater.h"
+#import "iRate.h"
 
 @implementation MYCallsignAppDelegate
 
 @synthesize window;
 @synthesize tabBarController, searchNavController, repeaterNavController;
 @synthesize members,repeaters;
+
+// Configure iRate
++ (void)initialize {
+	[iRate sharedInstance].appStoreID = 398566279;
+}
 
 #pragma mark -
 #pragma mark Application lifecycle
