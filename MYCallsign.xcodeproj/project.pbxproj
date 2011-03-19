@@ -15,6 +15,7 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		9F13B51612EB2EBC0016B06D /* map_ico.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F13B51512EB2EBC0016B06D /* map_ico.png */; };
 		9F4FFEC8133485D400B21B48 /* MYCallsign_ico_114.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4FFEC7133485D400B21B48 /* MYCallsign_ico_114.png */; };
+		9F4FFECB1334D14000B21B48 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4FFECA1334D14000B21B48 /* iRate.m */; };
 		9F6AE06F12E773BA005DECC6 /* SearchNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AE06E12E773BA005DECC6 /* SearchNavController.m */; };
 		9F6AE08912E7756D005DECC6 /* MemberDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AE08812E7756D005DECC6 /* MemberDetailsViewController.m */; };
 		9F6AE08D12E776C6005DECC6 /* MemberDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F6AE08C12E776C6005DECC6 /* MemberDetailsView.xib */; };
@@ -57,6 +58,8 @@
 		8D1107310486CEB800E47090 /* MYCallsign-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MYCallsign-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		9F13B51512EB2EBC0016B06D /* map_ico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_ico.png; sourceTree = "<group>"; };
 		9F4FFEC7133485D400B21B48 /* MYCallsign_ico_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MYCallsign_ico_114.png; sourceTree = "<group>"; };
+		9F4FFEC91334D14000B21B48 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
+		9F4FFECA1334D14000B21B48 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		9F6AE06D12E773BA005DECC6 /* SearchNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchNavController.h; sourceTree = "<group>"; };
 		9F6AE06E12E773BA005DECC6 /* SearchNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchNavController.m; sourceTree = "<group>"; };
 		9F6AE08712E7756D005DECC6 /* MemberDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberDetailsViewController.h; sourceTree = "<group>"; };
@@ -117,6 +120,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				9F4FFEC91334D14000B21B48 /* iRate.h */,
+				9F4FFECA1334D14000B21B48 /* iRate.m */,
 				9F6AE08712E7756D005DECC6 /* MemberDetailsViewController.h */,
 				9F6AE08812E7756D005DECC6 /* MemberDetailsViewController.m */,
 				9F6AE06D12E773BA005DECC6 /* SearchNavController.h */,
@@ -315,6 +320,7 @@
 				9FCF522B12EAF81500699BBE /* MapViewController.m in Sources */,
 				9FCF531F12EB0F6600699BBE /* MKAnnotation.m in Sources */,
 				9FCD4AE912EC64AA007485AF /* RepeatersMapViewController.m in Sources */,
+				9F4FFECB1334D14000B21B48 /* iRate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

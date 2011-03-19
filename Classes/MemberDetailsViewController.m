@@ -76,6 +76,8 @@
     
     // Configure the cell
     cell.textLabel.text = [values objectAtIndex:indexPath.section];
+	[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+	[cell.textLabel setNumberOfLines:2];
     return cell;
 }
 
