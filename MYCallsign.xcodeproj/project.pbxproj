@@ -345,11 +345,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sumardi Shukor (RF5J2AG5WR)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MYCallsign_Prefix.pch;
 				INFOPLIST_FILE = "MYCallsign-Info.plist";
 				PRODUCT_NAME = MYCallsign;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "664F404F-36EA-45D0-8ECB-95DD80FD0ACF";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -374,6 +377,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Software Machine Development";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
