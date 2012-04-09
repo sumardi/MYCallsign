@@ -23,7 +23,7 @@ Sumardi Shukor &lt;me[at]sumardi.net&gt;<br />
 
 <h2>Credits:</h2>
 <ul>
-	<li>9W2WTF - Mohd Hafiz Ismail</li>
+	<li>9W2WTF - Mohammad Hafiz Ismail (mypapit)</li>
 	<li>9M2PJU - Mohamad Faizul Zulkifli</li>
 	<li>Joseph Wain / glyphish.com</li>
 </ul>
